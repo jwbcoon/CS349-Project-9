@@ -53,8 +53,10 @@ pair<int, int> findBasesIfMatch(int left, int right) {
         return res;
     };
 
-    auto charToLL = [](char* number, int digitIndex) {
-        return (long long)number[digitIndex] - '0';
+    auto charToLL = [](char* number, int digitIndex)->long long {
+        if (isalpha(number[digitIndex]))
+            return number[digitIndex] - 55; // ASCII 'A' is 65. Get 10 - 35 by subtracting 55 for all alpha chars.
+        return number[digitIndex] - '0';
     };
 
     int totDigsLeft = log10(left) + 1, totDigsRight = log10(right) + 1; // Calc length of string
