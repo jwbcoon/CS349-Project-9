@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class commonLib {
+class CommonLib {
 public:
     // Function to initialize input and output files
     static void initFiles(ifstream& infile, ofstream& outfile, int argc, char* argv[], const string& progName = "program");

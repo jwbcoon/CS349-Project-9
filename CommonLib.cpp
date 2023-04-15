@@ -2,7 +2,7 @@
 // Created by Ethan Edwards on 4/7/2023.
 //
 
-#include "commonLib.h"
+#include "CommonLib.h"
 
 /*
  *  This function receives user arguments and assigns them to the ifstream and ofstream objects which manage I/O
@@ -10,7 +10,7 @@
  *
  *  If the user has no input file available to pass, then they must enter ## when prompted to exit the program.
  */
-void commonLib::initFiles(ifstream& infile, ofstream& outfile, int argc, char* argv[], const string& progName){
+void CommonLib::initFiles(ifstream& infile, ofstream& outfile, int argc, char* argv[], const string& progName){
     char confirm = 'n';
     string fname;
     // Check for inputs
@@ -51,7 +51,7 @@ void commonLib::initFiles(ifstream& infile, ofstream& outfile, int argc, char* a
  *  The function is templated to allow for any type of input.
  */
 template <typename T>
-vector<T> commonLib::lineReader(int numInputs, char sep, ifstream& in){ // Template function to process n lines of input
+vector<T> CommonLib::lineReader(int numInputs, char sep, ifstream& in){ // Template function to process n lines of input
     vector<T> inputs;
     string line;
     getline(in, line);
