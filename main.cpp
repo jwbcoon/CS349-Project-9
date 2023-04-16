@@ -37,6 +37,8 @@ int main(int argc, char** argv) {
         infile >> right;
     }
 
+    infile.close();
+    outfile.close();
 
     return 0;
 }
@@ -51,7 +53,7 @@ pair<int, int> findBasesIfMatch(const string& leftNumStr, const string& rightNum
                 res = res * base;
             if (exp != 1)
                 base = base * base; // square the base the same number of times as its set bit's positions
-            exp >>= 1; // bit shift rightNum once and assign to exponent
+            exp >>= 1; // bit shift right once and assign to exponent
         }
         return res;
     };
@@ -62,7 +64,7 @@ pair<int, int> findBasesIfMatch(const string& leftNumStr, const string& rightNum
         return number[digitIndex] - '0';
     };
 
-    int leftNum, rightNum;
+    int leftNum, rightNum, lastLIndex = leftNumStr.size() - 1, lastRIndex = rightNumStr.size() - 1;
     bool skippedBase;
 
     for (int leftBase = TWO; leftBase <= ZED; leftBase++) {
@@ -70,18 +72,18 @@ pair<int, int> findBasesIfMatch(const string& leftNumStr, const string& rightNum
             leftNum = rightNum = 0; //reset values to accumulate
             skippedBase = false;
             for (int i = 0; i < leftNumStr.size(); i++) { // Calculate base 10 value of leftNum for comparison
-                if (charToLL(leftNumStr, leftNumStr.size() - i - 1) >= leftBase) {
+                if (charToLL(leftNumStr, lastLIndex - i) >= leftBase) {
                     skippedBase = true;
                     break;
                 }
-                leftNum += charToLL(leftNumStr, leftNumStr.size() - i - 1) * binexp(leftBase, i);
+                leftNum += charToLL(leftNumStr, lastLIndex - i) * binexp(leftBase, i);
             }
             for (int j = 0; j < rightNumStr.size(); j++) { // Calculate base 10 value of rightNum for comparison
-                if (charToLL(rightNumStr, rightNumStr.size() - j - 1) >= rightBase) {
+                if (charToLL(rightNumStr, lastRIndex - j) >= rightBase) {
                     skippedBase = true;
                     break;
                 }
-                rightNum += charToLL(rightNumStr, rightNumStr.size() - j - 1) * binexp(rightBase, j);
+                rightNum += charToLL(rightNumStr, lastRIndex - j) * binexp(rightBase, j);
             }
             if (leftNum == rightNum && !skippedBase)
                 return { leftBase, rightBase };
